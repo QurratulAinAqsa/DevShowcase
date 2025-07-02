@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevShowcase   | Portfolio</title>
+    <title>DevShowCase |A Simple Portfolio</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap">
     <style>
@@ -243,7 +243,7 @@
             width: calc(100% - 40px);
         }
 
-        .theme-toggle {
+        .theme-toggle, .login-btn, .register-btn, .logout-btn {
             background: none;
             border: none;
             color: var(--dark-color);
@@ -251,6 +251,12 @@
             cursor: pointer;
             margin-left: 20px;
             transition: var(--transition);
+            padding: 5px 10px;
+            border-radius: 5px;
+        }
+
+        .login-btn:hover, .register-btn:hover, .logout-btn:hover {
+            background: rgba(108, 99, 255, 0.1);
         }
 
         .hamburger {
@@ -386,7 +392,7 @@
             color: var(--text-color);
             opacity: 0.8;
         }
-
+        
         /* Projects Section */
         .projects-filter {
             display: flex;
@@ -425,6 +431,7 @@
             box-shadow: var(--box-shadow);
             transition: var(--transition);
             border: 1px solid rgba(108, 99, 255, 0.1);
+            cursor: pointer; /* Make card clickable */
         }
 
         .project-card:hover {
@@ -477,7 +484,150 @@
         .project-links {
             display: flex;
             gap: 15px;
+            margin-top: 20px; /* Added margin for spacing */
         }
+
+        /* Project Modal Styles */
+        .project-modal {
+            display: none; /* Hidden by default */
+            position: fixed;
+            z-index: 2000; /* Higher than nav */
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .project-modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 800px;
+            width: 90%;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .project-modal-content img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .project-modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--dark-color);
+        }
+
+        .project-modal-content p {
+            margin-bottom: 15px;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        .project-modal-content .project-tags {
+            margin-bottom: 25px;
+        }
+
+        .project-modal-content .project-links .btn {
+            margin-right: 10px;
+        }
+
+        .close-button {
+            color: var(--dark-color);
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            font-size: 35px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .close-button:hover,
+        .close-button:focus {
+            color: var(--primary-color);
+        }
+
+        /* Login/Register Modal Styles */
+        .auth-modal {
+            display: none;
+            position: fixed;
+            z-index: 2000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(5px);
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .auth-modal-content {
+            background-color: var(--card-bg);
+            margin: auto;
+            padding: 40px;
+            border-radius: 15px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: var(--box-shadow);
+            position: relative;
+            animation: fadeIn 0.3s ease-out;
+            text-align: center;
+        }
+
+        .auth-modal-content h2 {
+            font-size: 2rem;
+            margin-bottom: 30px;
+            color: var(--dark-color);
+        }
+
+        .auth-modal-content .form-group input {
+            background: var(--bg-color);
+            border: 1px solid var(--primary-color);
+            color: var(--text-color);
+        }
+
+        .auth-modal-content .form-group input:focus {
+            background: var(--light-color);
+        }
+
+        .auth-modal-content .btn {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .auth-modal-content .error-message {
+            color: #ff4d4d;
+            margin-top: 15px;
+            font-weight: 500;
+        }
+
+        .auth-modal-content .switch-auth {
+            margin-top: 20px;
+            font-size: 0.9rem;
+            color: var(--text-color);
+        }
+        .auth-modal-content .switch-auth a {
+            font-weight: 600;
+        }
+
 
         /* Contact Section */
         .contact-section {
@@ -564,6 +714,11 @@
             border-radius: 15px;
             box-shadow: var(--box-shadow);
             animation: fadeInRight 1s ease;
+            color: var(--dark-color); /* Ensure text is visible in light mode */
+        }
+
+        .dark-mode .contact-form {
+             color: white; /* Ensure text is visible in dark mode */
         }
 
         .form-group {
@@ -574,26 +729,42 @@
             display: block;
             margin-bottom: 8px;
             font-weight: 500;
-            color: white;
+            color: var(--dark-color); /* Adjust for contrast */
+        }
+
+        .dark-mode .form-group label {
+            color: white; /* Adjust for contrast in dark mode */
         }
 
         .form-group input,
         .form-group textarea {
             width: 100%;
             padding: 12px 15px;
-            border: 2px solid rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(108, 99, 255, 0.2); /* Adjust border color */
             border-radius: 8px;
-            background: rgba(255, 255, 255, 0.05);
-            color: white;
+            background: var(--bg-color); /* Input background matching body */
+            color: var(--text-color); /* Input text color */
             font-family: inherit;
             transition: var(--transition);
+        }
+
+        .dark-mode .form-group input,
+        .dark-mode .form-group textarea {
+            background: var(--secondary-color); /* Darker input background */
+            color: var(--dark-color); /* Lighter input text color */
+            border: 2px solid rgba(125, 116, 255, 0.2);
         }
 
         .form-group input:focus,
         .form-group textarea:focus {
             border-color: var(--primary-color);
             outline: none;
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(108, 99, 255, 0.05); /* Lighter focus background */
+        }
+
+        .dark-mode .form-group input:focus,
+        .dark-mode .form-group textarea:focus {
+            background: rgba(125, 116, 255, 0.1);
         }
 
         .form-group textarea {
@@ -741,6 +912,11 @@
             }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
         /* Responsive Design */
         @media (max-width: 992px) {
             .about-content {
@@ -772,6 +948,7 @@
                 align-items: center;
                 padding-top: 40px;
                 transition: var(--transition);
+                box-shadow: var(--box-shadow);
             }
 
             .nav-links.active {
@@ -822,14 +999,17 @@
             .bio h3 {
                 font-size: 1.5rem;
             }
+
+            .auth-modal-content {
+                padding: 30px 20px;
+            }
         }
     </style>
 </head>
 <body>
-    <!-- Navigation -->
     <nav>
         <div class="container nav-container">
-            <a href="#" class="logo">DevShow<span>Case</span></a>
+            <a href="#" class="logo">Dev<span>ShowCase</span></a>
             <ul class="nav-links">
                 <li><a href="#home" class="active">Home</a></li>
                 <li><a href="#about">About</a></li>
@@ -837,16 +1017,24 @@
                 <li><a href="#projects">Projects</a></li>
                 <li><a href="#contact">Contact</a></li>
             </ul>
-            <button class="theme-toggle" id="theme-toggle">
+            <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
                 <i class="fas fa-moon"></i>
             </button>
-            <button class="hamburger" id="hamburger">
+            <button class="register-btn" id="register-btn" aria-label="Register">
+                <i class="fas fa-user-plus"></i> Register
+            </button>
+            <button class="login-btn" id="login-btn" aria-label="Login">
+                <i class="fas fa-sign-in-alt"></i> Login
+            </button>
+            <button class="logout-btn" id="logout-btn" style="display:none;" aria-label="Logout">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </button>
+            <button class="hamburger" id="hamburger" aria-label="Open navigation menu">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
     </nav>
 
-    <!-- Header/Hero Section -->
     <header id="home">
         <div class="container header-content">
             <h1>Hi, I'm Alex Developer</h1>
@@ -855,19 +1043,18 @@
                 <a href="#projects" class="btn">View My Work</a>
                 <a href="#contact" class="btn btn-outline">Contact Me</a>
             </div>
-            <a href="#about" class="scroll-down">
+            <a href="#about" class="scroll-down" aria-label="Scroll down to About section">
                 <i class="fas fa-chevron-down"></i>
             </a>
         </div>
     </header>
 
-    <!-- About Section -->
     <section id="about" class="section">
         <div class="container">
             <h2 class="section-title">About Me</h2>
             <div class="about-content">
                 <div class="profile-img-container">
-                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Alex Developer" class="profile-img">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=774&q=80" alt="Alex Developer" class="profile-img" loading="lazy">
                 </div>
                 <div class="bio">
                     <h3>Full Stack Developer based in New York</h3>
@@ -886,7 +1073,6 @@
         </div>
     </section>
 
-    <!-- Skills Section -->
     <section id="skills" class="section skills-section">
         <div class="container">
             <h2 class="section-title">My Skills</h2>
@@ -928,16 +1114,15 @@
                 </div>
                 <div class="skill-card">
                     <div class="skill-icon">
-                        <i class="fas fa-code-branch"></i>
+                        <i class="fas fa-cloud"></i>
                     </div>
-                    <h3>DevOps</h3>
+                    <h3>Cloud & DevOps</h3>
                     <p>Docker, CI/CD pipelines, AWS, and deployment strategies.</p>
                 </div>
             </div>
         </div>
     </section>
-
-    <!-- Projects Section -->
+    
     <section id="projects" class="section">
         <div class="container">
             <h2 class="section-title">My Projects</h2>
@@ -948,382 +1133,626 @@
                 <button class="filter-btn" data-filter="design">Design</button>
             </div>
             <div class="projects-grid" id="projects-grid">
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="E-commerce Platform" class="project-img">
-                    <div class="project-info">
-                        <h3>E-commerce Platform</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">React</span>
-                            <span class="project-tag">Node.js</span>
-                            <span class="project-tag">MongoDB</span>
-                        </div>
-                        <p>A full-featured online store with product catalog, shopping cart, and payment integration.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">Live Demo</a>
-                            <a href="#" class="btn btn-outline">Code</a>
-                        </div>
-                    </div>
                 </div>
-                <div class="project-card" data-category="mobile">
-                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Fitness Tracker" class="project-img">
-                    <div class="project-info">
-                        <h3>Fitness Tracker App</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">React Native</span>
-                            <span class="project-tag">Firebase</span>
-                        </div>
-                        <p>Mobile application for tracking workouts, nutrition, and fitness progress with social features.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">App Store</a>
-                            <a href="#" class="btn btn-outline">Case Study</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80" alt="Analytics Dashboard" class="project-img">
-                    <div class="project-info">
-                        <h3>Analytics Dashboard</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">TypeScript</span>
-                            <span class="project-tag">D3.js</span>
-                            <span class="project-tag">Express</span>
-                        </div>
-                        <p>Interactive data visualization platform with real-time updates and customizable reports.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">View Demo</a>
-                            <a href="#" class="btn btn-outline">GitHub</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="design">
-                    <img src="https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80" alt="UI Design System" class="project-img">
-                    <div class="project-info">
-                        <h3>UI Design System</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Figma</span>
-                            <span class="project-tag">Storybook</span>
-                        </div>
-                        <p>Comprehensive design system with reusable components, patterns, and accessibility guidelines.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">View Designs</a>
-                            <a href="#" class="btn btn-outline">Documentation</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="web">
-                    <img src="https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80" alt="Social Network" class="project-img">
-                    <div class="project-info">
-                        <h3>Developer Social Network</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">GraphQL</span>
-                            <span class="project-tag">Apollo</span>
-                            <span class="project-tag">MongoDB</span>
-                        </div>
-                        <p>Platform for developers to share projects, collaborate, and find job opportunities.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">Visit Site</a>
-                            <a href="#" class="btn btn-outline">Tech Stack</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card" data-category="mobile">
-                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Travel App" class="project-img">
-                    <div class="project-info">
-                        <h3>Travel Planner</h3>
-                        <div class="project-tags">
-                            <span class="project-tag">Flutter</span>
-                            <span class="project-tag">Firebase</span>
-                            <span class="project-tag">Google Maps API</span>
-                        </div>
-                        <p>Mobile app for planning trips, booking accommodations, and discovering local attractions.</p>
-                        <div class="project-links">
-                            <a href="#" class="btn">Download</a>
-                            <a href="#" class="btn btn-outline">Case Study</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
+    <div id="project-modal" class="project-modal">
+        <div class="project-modal-content">
+            <span class="close-button">&times;</span>
+            <img src="" alt="" id="modal-project-img" loading="lazy">
+            <h2 id="modal-project-title"></h2>
+            <div class="project-tags" id="modal-project-tags"></div>
+            <p id="modal-project-description"></p>
+            <div class="project-links" id="modal-project-links"></div>
+        </div>
+    </div>
+
+    <div id="login-modal" class="auth-modal">
+        <div class="auth-modal-content">
+            <span class="close-button" id="login-close-button">&times;</span>
+            <h2>Login</h2>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-username">Username:</label>
+                    <input type="text" id="login-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password:</label>
+                    <input type="password" id="login-password" name="password" required>
+                </div>
+                <button type="submit" class="btn">Login</button>
+                <p class="error-message" id="login-error-message" style="display:none;"></p>
+                <p class="switch-auth">Don't have an account? <a href="#" id="show-register">Register here</a></p>
+            </form>
+        </div>
+    </div>
+
+    <div id="register-modal" class="auth-modal">
+        <div class="auth-modal-content">
+            <span class="close-button" id="register-close-button">&times;</span>
+            <h2>Register</h2>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-username">Username:</label>
+                    <input type="text" id="register-username" name="username" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password:</label>
+                    <input type="password" id="register-password" name="password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password:</label>
+                    <input type="password" id="register-confirm-password" name="confirmPassword" required>
+                </div>
+                <button type="submit" class="btn">Register</button>
+                <p class="error-message" id="register-error-message" style="display:none;"></p>
+                <p class="switch-auth">Already have an account? <a href="#" id="show-login">Login here</a></p>
+            </form>
+        </div>
+    </div>
+
     <section id="contact" class="section contact-section">
         <div class="container">
             <h2 class="section-title">Get In Touch</h2>
             <div class="contact-container">
                 <div class="contact-info">
-                    <h3>Let's Talk About Your Project</h3>
+                    <h3>Let's build something amazing together!</h3>
+                    <p>I'm always open to new opportunities and collaborations. Feel free to reach out.</p>
                     <div class="contact-details">
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-envelope"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-envelope"></i></div>
                             <div class="contact-text">
                                 <h4>Email</h4>
-                                <a href="mailto:alex@example.com">alex@example.com</a>
+                                <p><a href="mailto:alex@example.com">alex@example.com</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-phone"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-phone-alt"></i></div>
                             <div class="contact-text">
                                 <h4>Phone</h4>
-                                <a href="tel:+1234567890">+1 (234) 567-890</a>
+                                <p><a href="tel:+1234567890">+1 (234) 567-890</a></p>
                             </div>
                         </div>
                         <div class="contact-item">
-                            <div class="contact-icon">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </div>
+                            <div class="contact-icon"><i class="fas fa-map-marker-alt"></i></div>
                             <div class="contact-text">
                                 <h4>Location</h4>
-                                <p>Hyd,India </p>
+                                <p>New York, NY, USA</p>
                             </div>
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-dribbble"></i></a>
+                        <a href="https://github.com/alexdev" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/alexdev" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://twitter.com/alexdev" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
-                <form class="contact-form" id="contact-form">
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Your Email</label>
-                        <input type="email" id="email" name="email" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="subject">Subject</label>
-                        <input type="text" id="subject" name="subject" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="message">Your Message</label>
-                        <textarea id="message" name="message" required></textarea>
-                    </div>
-                    <button type="submit" class="btn submit-btn">Send Message</button>
-                </form>
+                <div class="contact-form">
+                    <h3>Send me a message</h3>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Your Email</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Your Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn submit-btn">Send Message</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Footer -->
     <footer>
         <div class="container footer-content">
-            <div class="footer-logo">DevShow<span>Case</span></div>
+            <div class="footer-logo">Dev<span>ShowCase</span></div>
             <div class="footer-links">
                 <a href="#home">Home</a>
                 <a href="#about">About</a>
                 <a href="#skills">Skills</a>
                 <a href="#projects">Projects</a>
                 <a href="#contact">Contact</a>
-                <a href="#">Blog</a>
-                <a href="#">Privacy Policy</a>
             </div>
-            <p class="copyright">&copy; 2023  DevShowcase  . All rights reserved.</p>
+            <p class="copyright">&copy; 2025 Alex Developer. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Back to Top Button -->
-    <div class="back-to-top" id="back-to-top">
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
         <i class="fas fa-arrow-up"></i>
-    </div>
+    </button>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            // Mobile Navigation Toggle
-            const hamburger = document.getElementById('hamburger');
-            const navLinks = document.querySelector('.nav-links');
-            
-            hamburger.addEventListener('click', function() {
-                navLinks.classList.toggle('active');
-                this.querySelector('i').classList.toggle('fa-times');
-                this.querySelector('i').classList.toggle('fa-bars');
-            });
+        // --- Theme Toggle ---
+        const themeToggle = document.getElementById('theme-toggle');
+        const body = document.body;
 
-            // Close mobile menu when clicking a link
-            document.querySelectorAll('.nav-links a').forEach(link => {
-                link.addEventListener('click', () => {
-                    navLinks.classList.remove('active');
-                    hamburger.querySelector('i').classList.add('fa-bars');
-                    hamburger.querySelector('i').classList.remove('fa-times');
-                });
-            });
-
-            // Smooth scrolling for navigation links
-            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-                anchor.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    
-                    const targetElement = document.querySelector(targetId);
-                    if (targetElement) {
-                        window.scrollTo({
-                            top: targetElement.offsetTop - 70,
-                            behavior: 'smooth'
-                        });
-                    }
-                });
-            });
-
-            // Active navigation item on scroll
-            const sections = document.querySelectorAll('section');
-            const navItems = document.querySelectorAll('.nav-links li a');
-            
-            window.addEventListener('scroll', function() {
-                let current = '';
-                
-                sections.forEach(section => {
-                    const sectionTop = section.offsetTop;
-                    const sectionHeight = section.clientHeight;
-                    
-                    if (pageYOffset >= (sectionTop - 100)) {
-                        current = section.getAttribute('id');
-                    }
-                });
-                
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('href') === `#${current}`) {
-                        item.classList.add('active');
-                    }
-                });
-            });
-
-            // Theme Toggle
-            const themeToggle = document.getElementById('theme-toggle');
-            const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-            const currentTheme = localStorage.getItem('theme');
-            
-            if (currentTheme === 'dark' || (!currentTheme && prefersDarkScheme.matches)) {
-                document.body.classList.add('dark-mode');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            }
-            
-            themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('dark-mode');
-                
-                if (document.body.classList.contains('dark-mode')) {
-                    localStorage.setItem('theme', 'dark');
-                    this.innerHTML = '<i class="fas fa-sun"></i>';
-                } else {
-                    localStorage.setItem('theme', 'light');
-                    this.innerHTML = '<i class="fas fa-moon"></i>';
-                }
-            });
-
-            // Back to Top Button
-            const backToTopBtn = document.getElementById('back-to-top');
-            
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    backToTopBtn.classList.add('active');
-                } else {
-                    backToTopBtn.classList.remove('active');
-                }
-            });
-            
-            backToTopBtn.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            // Project Filtering
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const projectCards = document.querySelectorAll('.project-card');
-            
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    // Update active button
-                    filterButtons.forEach(btn => btn.classList.remove('active'));
-                    this.classList.add('active');
-                    
-                    const filterValue = this.getAttribute('data-filter');
-                    
-                    // Filter projects
-                    projectCards.forEach(card => {
-                        if (filterValue === 'all' || card.getAttribute('data-category') === filterValue) {
-                            card.style.display = 'block';
-                            setTimeout(() => {
-                                card.style.opacity = '1';
-                                card.style.transform = 'translateY(0)';
-                            }, 50);
-                        } else {
-                            card.style.opacity = '0';
-                            card.style.transform = 'translateY(20px)';
-                            setTimeout(() => {
-                                card.style.display = 'none';
-                            }, 300);
-                        }
-                    });
-                });
-            });
-
-            // Form Submission
-            const contactForm = document.getElementById('contact-form');
-            
-            if (contactForm) {
-                contactForm.addEventListener('submit', function(e) {
-                    e.preventDefault();
-                    
-                    // Get form values
-                    const name = document.getElementById('name').value;
-                    const email = document.getElementById('email').value;
-                    const subject = document.getElementById('subject').value;
-                    const message = document.getElementById('message').value;
-                    
-                    // Here you would typically send the data to a server
-                    // For this demo, we'll simulate a successful submission
-                    console.log('Form submitted:', { name, email, subject, message });
-                    
-                    // Show success message
-                    const submitBtn = this.querySelector('.submit-btn');
-                    submitBtn.innerHTML = '<i class="fas fa-check"></i> Message Sent';
-                    submitBtn.style.backgroundColor = '#2ecc71';
-                    
-                    // Reset form after 3 seconds
-                    setTimeout(() => {
-                        contactForm.reset();
-                        submitBtn.innerHTML = 'Send Message';
-                        submitBtn.style.backgroundColor = '';
-                    }, 3000);
-                });
-            }
-
-            // Animation on scroll
-            const animateOnScroll = function() {
-                const elements = document.querySelectorAll('.skill-card, .project-card, .contact-info, .contact-form');
-                
-                elements.forEach(element => {
-                    const elementPosition = element.getBoundingClientRect().top;
-                    const screenPosition = window.innerHeight / 1.3;
-                    
-                    if (elementPosition < screenPosition) {
-                        element.style.opacity = '1';
-                        element.style.transform = 'translateY(0)';
-                    }
-                });
-            };
-            
-            // Set initial state for animated elements
-            document.querySelectorAll('.skill-card, .project-card, .contact-info, .contact-form').forEach(el => {
-                el.style.opacity = '0';
-                el.style.transform = 'translateY(30px)';
-                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            });
-            
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Run once on load
+        themeToggle.addEventListener('click', () => {
+            body.classList.toggle('dark-mode');
+            const isDarkMode = body.classList.contains('dark-mode');
+            localStorage.setItem('darkMode', isDarkMode);
+            themeToggle.querySelector('i').classList.toggle('fa-sun', isDarkMode);
+            themeToggle.querySelector('i').classList.toggle('fa-moon', !isDarkMode);
         });
+
+        // Apply theme on load
+        document.addEventListener('DOMContentLoaded', () => {
+            if (localStorage.getItem('darkMode') === 'true') {
+                body.classList.add('dark-mode');
+                themeToggle.querySelector('i').classList.add('fa-sun');
+                themeToggle.querySelector('i').classList.classList.remove('fa-moon');
+            }
+        });
+
+        // --- Hamburger Menu ---
+        const hamburger = document.getElementById('hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+            hamburger.querySelector('i').classList.toggle('fa-times');
+            hamburger.querySelector('i').classList.toggle('fa-bars');
+        });
+
+        // Close nav menu when a link is clicked
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navLinks.classList.remove('active');
+                hamburger.querySelector('i').classList.remove('fa-times');
+                hamburger.querySelector('i').classList.add('fa-bars');
+            });
+        });
+
+        // --- Active Navigation Link on Scroll ---
+        const sections = document.querySelectorAll('section');
+        const navLi = document.querySelectorAll('.nav-links li a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (pageYOffset >= sectionTop - sectionHeight / 3) { // Adjusted offset for better accuracy
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLi.forEach(a => {
+                a.classList.remove('active');
+                if (a.getAttribute('href').includes(current)) {
+                    a.classList.add('active');
+                }
+            });
+        });
+
+        // --- Scroll Down Icon animation ---
+        document.querySelector('.scroll-down').addEventListener('click', (e) => {
+            e.preventDefault();
+            document.querySelector('#about').scrollIntoView({ behavior: 'smooth' });
+        });
+
+        // --- Back to Top Button ---
+        const backToTopButton = document.getElementById('back-to-top');
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > 300) { // Show after scrolling 300px
+                backToTopButton.classList.add('active');
+            } else {
+                backToTopButton.classList.remove('active');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // --- Dynamic Projects Data (Simulated Backend) ---
+        const projectsData = [
+            {
+                id: 'ecommerce-platform',
+                title: 'E-commerce Platform',
+                category: 'web',
+                image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                description: 'A full-featured online store built with modern web technologies, offering product Browse, shopping cart functionality, user authentication, and a secure payment gateway integration. It supports product management, order processing, and customer relationship management features. Designed for scalability and high performance.',
+                tags: ['React', 'Node.js', 'MongoDB', 'Stripe API', 'Redux', 'JWT Auth'],
+                liveLink: 'https://example.com/ecommerce',
+                codeLink: 'https://github.com/alexdev/ecommerce-platform'
+            },
+            {
+                id: 'fitness-tracker-app',
+                title: 'Fitness Tracker App',
+                category: 'mobile',
+                image: 'https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB4aG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80',
+                description: 'A cross-platform mobile application for tracking workouts, nutrition, and fitness progress. Features include customizable workout routines, calorie tracking, progress charts, and social sharing capabilities. Developed with a focus on intuitive UI/UX and real-time data synchronization.',
+                tags: ['React Native', 'Firebase', 'Expo', 'GraphQL', 'Push Notifications'],
+                liveLink: 'https://play.google.com/store/apps/details?id=com.fitnesstracker',
+                caseStudyLink: 'https://example.com/fitness-tracker-case-study'
+            },
+            {
+                id: 'analytics-dashboard',
+                title: 'Analytics Dashboard',
+                category: 'web',
+                image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1115&q=80',
+                description: 'An interactive data visualization platform providing real-time analytics and customizable reports. It integrates with various data sources and offers dynamic charting options to help businesses monitor key performance indicators. Built for high performance and scalability with complex data sets.',
+                tags: ['TypeScript', 'D3.js', 'Express', 'PostgreSQL', 'WebSockets', 'Chart.js'],
+                liveLink: 'https://example.com/dashboard',
+                codeLink: 'https://github.com/alexdev/analytics-dashboard'
+            },
+            {
+                id: 'ui-design-system',
+                title: 'UI Design System',
+                category: 'design',
+                image: 'https://images.unsplash.com/photo-1547658719-da2b51169166?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1064&q=80',
+                description: 'A comprehensive design system providing a library of reusable UI components, design tokens, and guidelines. It ensures consistency across multiple products and significantly speeds up development cycles. Documented with Storybook and integrates seamlessly with design tools like Figma.',
+                tags: ['Figma', 'Storybook', 'Styled Components', 'Accessibility', 'Design Tokens'],
+                liveLink: 'https://example.com/design-system',
+                documentationLink: 'https://example.com/design-system-docs'
+            },
+            {
+                id: 'developer-social-network',
+                title: 'Developer Social Network',
+                category: 'web',
+                image: 'https://images.unsplash.com/photo-1559028012-481c04fa702d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1136&q=80',
+                description: 'A social networking platform specifically designed for developers to connect, share projects, collaborate on open-source initiatives, and find job opportunities. Features include user profiles, project showcases, real-time chat, and a robust search functionality.',
+                tags: ['GraphQL', 'Apollo', 'MongoDB', 'React', 'WebSockets', 'Passport.js'],
+                liveLink: 'https://example.com/dev-social',
+                codeLink: 'https://github.com/alexdev/dev-social-network'
+            },
+            {
+                id: 'smart-home-iot-dashboard',
+                title: 'Smart Home IoT Dashboard',
+                category: 'web',
+                image:  'https://www.tdk.com/en/tech-mag/sites/default/files/2024-05/Devices%20on%20your%20smart%20home.jpg',
+                description: 'A web-based dashboard for controlling and monitoring smart home devices. Provides real-time data from IoT sensors, allows remote control of lights, thermostats, and security systems. Features custom automation rules and historical data visualization.',
+                tags: ['Vue.js', 'Node.js', 'MQTT', 'Raspberry Pi', 'Python', 'Firebase'],
+                liveLink: 'https://example.com/smarthome-dashboard',
+                codeLink: 'https://github.com/alexdev/smarthome-iot'
+            }
+        ];
+
+        const projectsGrid = document.getElementById('projects-grid');
+        const projectsFilter = document.getElementById('projects-filter');
+
+        function renderProjects(filter = 'all') {
+            projectsGrid.innerHTML = ''; // Clear existing projects
+            const filteredProjects = filter === 'all'
+                ? projectsData
+                : projectsData.filter(project => project.category === filter);
+
+            filteredProjects.forEach(project => {
+                const projectCard = document.createElement('div');
+                projectCard.classList.add('project-card');
+                projectCard.setAttribute('data-category', project.category);
+                projectCard.setAttribute('data-project-id', project.id); // Add ID for modal
+
+                const tagsHtml = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
+
+                projectCard.innerHTML = `
+                    <img src="${project.image}" alt="${project.title}" class="project-img" loading="lazy">
+                    <div class="project-info">
+                        <h3>${project.title}</h3>
+                        <div class="project-tags">${tagsHtml}</div>
+                        <p>${project.description.substring(0, 100)}...</p> <div class="project-links">
+                             <button class="btn view-project-btn" data-project-id="${project.id}">View Details</button>
+                        </div>
+                    </div>
+                `;
+                projectsGrid.appendChild(projectCard);
+            });
+            addProjectCardListeners();
+        }
+
+        function addProjectCardListeners() {
+            document.querySelectorAll('.project-card').forEach(card => {
+                card.addEventListener('click', (e) => {
+                    // Only open modal if not clicking on a link inside
+                    if (!e.target.closest('.project-links a') && !e.target.classList.contains('view-project-btn')) {
+                         openProjectModal(card.dataset.projectId);
+                    }
+                });
+            });
+            document.querySelectorAll('.view-project-btn').forEach(button => {
+                button.addEventListener('click', (e) => {
+                    e.stopPropagation(); // Prevent card click event from firing
+                    openProjectModal(button.dataset.projectId);
+                });
+            });
+        }
+
+
+        // Initial render of all projects
+        document.addEventListener('DOMContentLoaded', () => {
+            renderProjects();
+        });
+
+        // Projects Filter functionality
+        projectsFilter.addEventListener('click', (e) => {
+            if (e.target.classList.contains('filter-btn')) {
+                // Remove 'active' from all buttons
+                projectsFilter.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+                // Add 'active' to the clicked button
+                e.target.classList.add('active');
+                renderProjects(e.target.dataset.filter);
+            }
+        });
+
+        // --- Project Modal Functionality ---
+        const projectModal = document.getElementById('project-modal');
+        const modalProjectImg = document.getElementById('modal-project-img');
+        const modalProjectTitle = document.getElementById('modal-project-title');
+        const modalProjectTags = document.getElementById('modal-project-tags');
+        const modalProjectDescription = document.getElementById('modal-project-description');
+        const modalProjectLinks = document.getElementById('modal-project-links');
+        const closeProjectModalBtn = projectModal.querySelector('.close-button');
+
+        function openProjectModal(projectId) {
+            const project = projectsData.find(p => p.id === projectId);
+            if (project) {
+                modalProjectImg.src = project.image;
+                modalProjectImg.alt = project.title;
+                modalProjectTitle.textContent = project.title;
+                modalProjectDescription.textContent = project.description;
+
+                modalProjectTags.innerHTML = project.tags.map(tag => `<span class="project-tag">${tag}</span>`).join('');
+
+                modalProjectLinks.innerHTML = '';
+                if (project.liveLink) {
+                    const liveLinkBtn = document.createElement('a');
+                    liveLinkBtn.href = project.liveLink;
+                    liveLinkBtn.target = '_blank';
+                    liveLinkBtn.classList.add('btn');
+                    liveLinkBtn.textContent = project.category === 'mobile' ? 'App Store' : 'Live Demo';
+                    modalProjectLinks.appendChild(liveLinkBtn);
+                }
+                if (project.codeLink) {
+                    const codeLinkBtn = document.createElement('a');
+                    codeLinkBtn.href = project.codeLink;
+                    codeLinkBtn.target = '_blank';
+                    codeLinkBtn.classList.add('btn', 'btn-outline');
+                    codeLinkBtn.textContent = 'Source Code';
+                    modalProjectLinks.appendChild(codeLinkBtn);
+                }
+                if (project.caseStudyLink) {
+                    const caseStudyLinkBtn = document.createElement('a');
+                    caseStudyLinkBtn.href = project.caseStudyLink;
+                    caseStudyLinkBtn.target = '_blank';
+                    caseStudyLinkBtn.classList.add('btn', 'btn-outline');
+                    caseStudyLinkBtn.textContent = 'Case Study';
+                    modalProjectLinks.appendChild(caseStudyLinkBtn);
+                }
+                 if (project.documentationLink) {
+                    const docLinkBtn = document.createElement('a');
+                    docLinkBtn.href = project.documentationLink;
+                    docLinkBtn.target = '_blank';
+                    docLinkBtn.classList.add('btn', 'btn-outline');
+                    docLinkBtn.textContent = 'Documentation';
+                    modalProjectLinks.appendChild(docLinkBtn);
+                }
+
+
+                projectModal.style.display = 'flex';
+                document.body.style.overflow = 'hidden'; // Prevent scrolling background
+            }
+        }
+
+        closeProjectModalBtn.addEventListener('click', () => {
+            projectModal.style.display = 'none';
+            document.body.style.overflow = ''; // Restore scrolling
+        });
+
+        // Close modal if clicked outside of content
+        window.addEventListener('click', (event) => {
+            if (event.target === projectModal) {
+                projectModal.style.display = 'none';
+                document.body.style.overflow = '';
+            }
+            if (event.target === loginModal) {
+                loginModal.style.display = 'none';
+                document.body.style.overflow = '';
+                loginErrorMessage.style.display = 'none';
+            }
+            if (event.target === registerModal) {
+                registerModal.style.display = 'none';
+                document.body.style.overflow = '';
+                registerErrorMessage.style.display = 'none';
+            }
+        });
+
+        // --- Simulated Login/Register System ---
+        const loginBtn = document.getElementById('login-btn');
+        const registerBtn = document.getElementById('register-btn');
+        const logoutBtn = document.getElementById('logout-btn');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const closeLoginModalBtn = document.getElementById('login-close-button');
+        const closeRegisterModalBtn = document.getElementById('register-close-button');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const loginErrorMessage = document.getElementById('login-error-message');
+        const registerErrorMessage = document.getElementById('register-error-message');
+        const showRegisterLink = document.getElementById('show-register');
+        const showLoginLink = document.getElementById('show-login');
+
+        // Check for logged in state (in a real app, this would be a session token)
+        function checkAuthStatus() {
+            const currentUser = localStorage.getItem('currentUser');
+            if (currentUser) {
+                loginBtn.style.display = 'none';
+                registerBtn.style.display = 'none';
+                logoutBtn.style.display = 'inline-block';
+            } else {
+                loginBtn.style.display = 'inline-block';
+                registerBtn.style.display = 'inline-block';
+                logoutBtn.style.display = 'none';
+            }
+        }
+
+        // Call on page load
+        document.addEventListener('DOMContentLoaded', checkAuthStatus);
+
+        loginBtn.addEventListener('click', () => {
+            loginModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            loginErrorMessage.style.display = 'none'; // Clear previous errors
+            registerModal.style.display = 'none'; // Ensure register modal is closed
+        });
+
+        registerBtn.addEventListener('click', () => {
+            registerModal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            registerErrorMessage.style.display = 'none'; // Clear previous errors
+            loginModal.style.display = 'none'; // Ensure login modal is closed
+        });
+
+        closeLoginModalBtn.addEventListener('click', () => {
+            loginModal.style.display = 'none';
+            document.body.style.overflow = '';
+            loginErrorMessage.style.display = 'none';
+        });
+
+        closeRegisterModalBtn.addEventListener('click', () => {
+            registerModal.style.display = 'none';
+            document.body.style.overflow = '';
+            registerErrorMessage.style.display = 'none';
+        });
+
+        showRegisterLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginModal.style.display = 'none';
+            registerModal.style.display = 'flex';
+            loginErrorMessage.style.display = 'none';
+        });
+
+        showLoginLink.addEventListener('click', (e) => {
+            e.preventDefault();
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex';
+            registerErrorMessage.style.display = 'none';
+        });
+
+        // --- Register Form Submission (Simulated) ---
+        registerForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = registerForm['register-username'].value;
+            const password = registerForm['register-password'].value;
+            const confirmPassword = registerForm['register-confirm-password'].value;
+
+            let users = JSON.parse(localStorage.getItem('users')) || {};
+
+            if (password !== confirmPassword) {
+                registerErrorMessage.textContent = 'Passwords do not match.';
+                registerErrorMessage.style.display = 'block';
+                return;
+            }
+
+            if (users[username]) {
+                registerErrorMessage.textContent = 'Username already exists.';
+                registerErrorMessage.style.display = 'block';
+                return;
+            }
+
+            // In a real app, hash the password before storing
+            users[username] = password; // Storing plain text password for simulation - DO NOT DO THIS IN PRODUCTION!
+            localStorage.setItem('users', JSON.stringify(users));
+
+            alert('Registration successful! Please log in.');
+            registerModal.style.display = 'none';
+            loginModal.style.display = 'flex'; // Automatically switch to login form
+            document.body.style.overflow = 'hidden';
+            registerForm.reset();
+            registerErrorMessage.style.display = 'none';
+        });
+
+        // --- Login Form Submission (Simulated) ---
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const username = loginForm['login-username'].value;
+            const password = loginForm['login-password'].value;
+
+            const users = JSON.parse(localStorage.getItem('users')) || {};
+
+            if (users[username] && users[username] === password) { // Check if user exists and password matches
+                localStorage.setItem('currentUser', username); // Store logged-in user
+                alert(`Welcome, ${username}! Login Successful!`);
+                loginModal.style.display = 'none';
+                document.body.style.overflow = '';
+                checkAuthStatus();
+                loginForm.reset();
+            } else {
+                loginErrorMessage.textContent = 'Invalid username or password.';
+                loginErrorMessage.style.display = 'block';
+            }
+        });
+
+        logoutBtn.addEventListener('click', () => {
+            localStorage.removeItem('currentUser'); // Clear logged-in user
+            alert('Logged out successfully!');
+            checkAuthStatus();
+        });
+
+
+        // --- Contact Form Submission (Simulated) ---
+        const contactForm = document.getElementById('contactForm');
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+
+            // In a real application, you would send this data to a server using fetch() or XMLHttpRequest
+            // Example:
+            /*
+            fetch('/api/contact', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, subject, message }),
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Your message has been sent successfully!');
+                    contactForm.reset();
+                } else {
+                    alert('Failed to send message. Please try again later.');
+                }
+            })
+            .catch(error => {
+                console.error('Error sending message:', error);
+                alert('An error occurred. Please try again.');
+            });
+            */
+
+            // For now, we'll just simulate success
+            console.log('Form Submitted:', { name, email, subject, message });
+            alert('Your message has been sent successfully! (Simulated)');
+            contactForm.reset();
+        });
+
+        // --- Image Lazy Loading (Built-in browser lazy loading added to img tags) ---
+        // Added `loading="lazy"` attribute to image tags in HTML for browser-native lazy loading.
+        // This defers loading of images until they are near the viewport, improving initial page load performance.
+
+        // --- Accessibility Enhancements ---
+        // Added `aria-label` attributes to interactive elements like theme toggle, login/logout, hamburger for screen readers.
+        // Ensured form inputs have `label` and `required` attributes.
     </script>
 </body>
-</html>
+    </html>
